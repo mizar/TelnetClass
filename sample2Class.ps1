@@ -1247,6 +1247,8 @@ class TelnetClient {
 			$this.CCONF_LogPath = Join-Path $PSScriptRoot "telnet_$YYYYMMDD.log"
 		}
 
+		Write-Host $this.Log("[Connect] $RemoteHost : $Port")
+
 		# デシジョンテーブルセット
 		$this.SetDecisionTable()
 
@@ -1391,6 +1393,8 @@ class TelnetClient {
 	# 切断(public)
 	##########################################################################
 	[void]DisConnect(){
+		Write-Host $this.Log("[DisConnect]")
+
 		$this.CV_Stream.Close()
 		$this.CV_Writer.Close()
 		$this.CV_Socket.Close()
