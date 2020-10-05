@@ -1232,7 +1232,7 @@ class TelnetClient {
 ### ここ以降が本来の public #####################################################
 
 	##########################################################################
-	# 接続(public)
+	# 接続(public) IPv4用
 	##########################################################################
 	[void] Connect([string]$RemoteHost, [int]$Port ){
 
@@ -1266,6 +1266,42 @@ class TelnetClient {
 
 	}
 
+
+	##########################################################################
+	# 接続(public) IPv6/IPv4対応
+	##########################################################################
+	[void] ConnectV6([string]$RemoteHost, [int]$Port ){
+
+		# ログパス
+		if( $this.CCONF_LogPath -eq "" ){
+			$Now = Get-Date
+			$YYYYMMDD = $Now.ToString("yyyy-MMdd")
+			$this.CCONF_LogPath = Join-Path $PSScriptRoot "telnet_$YYYYMMDD.log"
+		}
+
+		Write-Host $this.Log("[Connect] $RemoteHost : $Port")
+
+		# デシジョンテーブルセット
+		$this.SetDecisionTable()
+
+		# 受信バッファ
+		$this.CV_ReceiveBuffer = New-Object byte[] $this.CCONF_BufferSize
+
+		# 送信バッファ
+		$this.CV_SendBuffer = New-Object byte[] $this.CCONF_BufferSize
+
+		# Text バッファ
+		# $this.CV_TextBuffer = New-Object byte[] $this.CCONF_BufferSize
+
+		# tcp 接続
+		Add-Type -AssemblyName System.Net
+
+		$this.CV_Socket = New-Object System.Net.Sockets.TcpClient
+		$this.CV_Socket.Connect($RemoteHost, $Port)
+		$this.CV_Stream = $this.CV_Socket.GetStream()
+		$this.CV_Writer = New-Object System.IO.StreamWriter($this.CV_Stream)
+
+	}
 
 
 	##########################################################################
