@@ -1431,7 +1431,7 @@ class TelnetClient {
 
 		$Now = Get-Date
 
-		$Log = $Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " "
+		$Log = $Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + " "
 		$Log += $LogString
 
 		# ログフォルダーがなかったら作成
