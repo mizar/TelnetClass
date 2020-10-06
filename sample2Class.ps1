@@ -675,7 +675,7 @@ class TelnetClient {
 		# 値がセットされているシステム確認
 		# Client だけ
 		if( ($ContainsClinet -eq $true) -and ( $ContainsServer -eq $false )){
-			if( $ClientStatus -eq $null ){
+			if( $null -eq $ClientStatus ){
 				# 未知のオプションなので、状態と不使用を追加
 				$this.CV_TelnetClientStatus.Add( $binOption, $binOrder )
 				$ClientStatus = $binOrder
@@ -687,7 +687,7 @@ class TelnetClient {
 		}
 		# 対象が Server だけ
 		elseif( ($ContainsClinet -eq $false) -and ( $ContainsServer -eq $true )){
-			if( $ServerStatus -eq $null ){
+			if( $null -eq $ServerStatus ){
 				# 未知のオプションなので、状態と不使用を追加
 				$this.CV_TelnetServerStatus.Add( $binOption, $binOrder )
 				$ServerStatus = $binOrder
@@ -1030,7 +1030,7 @@ class TelnetClient {
 		# 値がセットされているシステム確認
 		# Client だけ
 		if( ($ContainsClinet -eq $true) -and ( $ContainsServer -eq $false )){
-			if( $ClientStatus -eq $null ){
+			if( $null -eq $ClientStatus ){
 				# 未知のオプションなので、状態と不使用を追加
 				$this.CV_TelnetClientStatus.Add( $binOption, $binOrder )
 				$ClientStatus = $binOrder
@@ -1042,7 +1042,7 @@ class TelnetClient {
 		}
 		# 対象が Server だけ
 		elseif( ($ContainsClinet -eq $false) -and ( $ContainsServer -eq $true )){
-			if( $ServerStatus -eq $null ){
+			if( $null -eq $ServerStatus ){
 				# 未知のオプションなので、状態と不使用を追加
 				$this.CV_TelnetServerStatus.Add( $binOption, $binOrder )
 				$ServerStatus = $binOrder
@@ -1140,7 +1140,7 @@ class TelnetClient {
 			$UseOption = $this.CCONF_TelnetServerConfig[$binOption]
 		}
 
-		if( $UseOption -eq $null ){
+		if( $null -eq $UseOption ){
 			$UseOption = $this.CC_strNull
 		}
 		elseif( $UseOption -eq $true ){
