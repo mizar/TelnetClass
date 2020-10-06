@@ -365,8 +365,8 @@ class TelnetClient {
 			# 未設定オプションごとにリクエストメッセージを作る
 			foreach( $NotSetKey in $NotSetClientKeys ){
 				[array]$NotSetOptionAnalysis = $this.CCONF_DecisionTable |
-													? ActiveSet -eq "Y" |					# 能動処理
-													? Terget -eq $this.CC_TergetClient 		# Client 対象
+													Where-Object ActiveSet -eq "Y" |					# 能動処理
+													Where-Object Terget -eq $this.CC_TergetClient 		# Client 対象
 
 				# オプション
 				$binOption = $NotSetKey
@@ -389,7 +389,7 @@ class TelnetClient {
 
 				# デシジョンテーブル参照
 				$NotSetOptionAnalysis = $NotSetOptionAnalysis |
-											? UseOptionClient -eq $strIsUseOption
+											Where-Object UseOptionClient -eq $strIsUseOption
 
 				# デシジョンテーブルチェック
 				if( $NotSetOptionAnalysis.Count -eq 0 ){
@@ -504,8 +504,8 @@ class TelnetClient {
 			# 未設定オプションごとにリクエストメッセージを作る
 			foreach( $NotSetKey in $NotSetServerKeys ){
 				[array]$NotSetOptionAnalysis = $this.CCONF_DecisionTable |
-													? ActiveSet -eq "Y" |					# 能動処理
-													? Terget -eq $this.CC_TergetServer 		# Server 対象
+													Where-Object ActiveSet -eq "Y" |					# 能動処理
+													Where-Object Terget -eq $this.CC_TergetServer 		# Server 対象
 
 				# オプション
 				$binOption = $NotSetKey
@@ -528,7 +528,7 @@ class TelnetClient {
 
 				# デシジョンテーブル参照
 				$NotSetOptionAnalysis = $NotSetOptionAnalysis |
-											? UseOptionServer -eq $strIsUseOption
+											Where-Object UseOptionServer -eq $strIsUseOption
 
 				# デシジョンテーブルチェック
 				if( $NotSetOptionAnalysis.Count -eq 0 ){
@@ -629,8 +629,8 @@ class TelnetClient {
 
 		# 命令でデシジョンテーブルを絞る
 		[array]$ReceiveMessageAnalysis = $this.CCONF_DecisionTable |
-											? ReceiveEscape -eq "Y" |		# IAC
-											? ReceiveOrder -eq $binOrder	# 命令
+											Where-Object ReceiveEscape -eq "Y" |		# IAC
+											Where-Object ReceiveOrder -eq $binOrder	# 命令
 
 		# 0件ならデシジョンテーブル不足エラー
 		if( $ReceiveMessageAnalysis.Count -eq 0 ){
@@ -725,7 +725,7 @@ class TelnetClient {
 
 		# 直前送信 でデシジョンテーブルを絞る(IAC / 受信命令は絞り済み)
 		[array]$ReceiveMessageAnalysis = $ReceiveMessageAnalysis |
-											? PreSend -eq $SystemStatus
+											Where-Object PreSend -eq $SystemStatus
 
 		# 0件ならデシジョンテーブル不足エラー
 		if( $ReceiveMessageAnalysis.Count -eq 0 ){
@@ -780,12 +780,12 @@ class TelnetClient {
 		if( $TergetSystem -eq $this.CC_TergetClient ){
 			# Client
 			[array]$ReceiveMessageAnalysis = $ReceiveMessageAnalysis |
-												? ReceiveOption -eq $binOption
+												Where-Object ReceiveOption -eq $binOption
 		}
 		elseif( $TergetSystem -eq $this.CC_TergetServer ){
 			# Server
 			[array]$ReceiveMessageAnalysis = $ReceiveMessageAnalysis |
-												? ReceiveOption -eq $binOption
+												Where-Object ReceiveOption -eq $binOption
 		}
 
 		# 0件ならデシジョンテーブル不足エラー
@@ -984,8 +984,8 @@ class TelnetClient {
 
 		# 命令でデシジョンテーブルを絞る
 		[array]$ReceiveMessageAnalysis = $this.CCONF_DecisionTable |
-											? ReceiveEscape -eq "Y" |		# IAC
-											? ReceiveOrder -eq $binOrder	# 命令
+											Where-Object ReceiveEscape -eq "Y" |		# IAC
+											Where-Object ReceiveOrder -eq $binOrder	# 命令
 
 		# 0件ならデシジョンテーブル不足エラー
 		if( $ReceiveMessageAnalysis.Count -eq 0 ){
@@ -1080,7 +1080,7 @@ class TelnetClient {
 
 		# 直前送信 でデシジョンテーブルを絞る(IAC / 受信命令は絞り済み)
 		[array]$ReceiveMessageAnalysis = $ReceiveMessageAnalysis |
-											? PreSend -eq $SystemStatus
+											Where-Object PreSend -eq $SystemStatus
 
 		# 0件ならデシジョンテーブル不足エラー
 		if( $ReceiveMessageAnalysis.Count -eq 0 ){
@@ -1154,12 +1154,12 @@ class TelnetClient {
 		if( $TergetSystem -eq $this.CC_TergetClient ){
 			# Client
 			[array]$ReceiveMessageAnalysis = $ReceiveMessageAnalysis |
-												? UseOptionClient -eq $UseOption
+												Where-Object UseOptionClient -eq $UseOption
 		}
 		elseif( $TergetSystem -eq $this.CC_TergetServer ){
 			# Server
 			[array]$ReceiveMessageAnalysis = $ReceiveMessageAnalysis |
-												? UseOptionServer -eq $UseOption
+												Where-Object UseOptionServer -eq $UseOption
 		}
 
 		# 0件ならデシジョンテーブル不足エラー
