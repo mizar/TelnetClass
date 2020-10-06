@@ -219,6 +219,12 @@ class TelnetClient {
 	# ライター
 	[System.IO.StreamWriter] $CV_Writer
 
+	# 受信エンコーディング
+	[System.Text.Encoding] $CV_EncodingR = [System.Text.Encoding]::UTF8
+
+	# 送信エンコーディング
+	[System.Text.Encoding] $CV_EncodingT = [System.Text.Encoding]::UTF8
+
 	# 受信バッファ
 	[Byte[]] $CV_ReceiveBuffer
 
@@ -241,7 +247,14 @@ class TelnetClient {
 	##########################################################################
 	# コンストラクタ(protected)
 	##########################################################################
-	TelnetClient([string]$RemoteHost, [int]$Port ){
+	TelnetClient([string]$RemoteHost, [int]$Port, $EncR = $null, $EncT = $null ){
+		if($EncR -is [System.Text.Encoding]){
+			$this.CV_EncodingR = $EncR
+		}
+		if($EncT -is [System.Text.Encoding]){
+			$this.CV_EncodingT = $EncT
+		}
+
 		# 接続
 		$this.Connect($RemoteHost, $Port)
 	}
@@ -1266,7 +1279,7 @@ class TelnetClient {
 
 		$this.CV_Socket = New-Object System.Net.Sockets.TcpClient($RemoteHost, $Port)
 		$this.CV_Stream = $this.CV_Socket.GetStream()
-		$this.CV_Writer = New-Object System.IO.StreamWriter($this.CV_Stream)
+		$this.CV_Writer = New-Object System.IO.StreamWriter($this.CV_Stream, $this.CV_EncodingT)
 
 	}
 
@@ -1303,7 +1316,7 @@ class TelnetClient {
 		$this.CV_Socket = New-Object System.Net.Sockets.TcpClient
 		$this.CV_Socket.Connect($RemoteHost, $Port)
 		$this.CV_Stream = $this.CV_Socket.GetStream()
-		$this.CV_Writer = New-Object System.IO.StreamWriter($this.CV_Stream)
+		$this.CV_Writer = New-Object System.IO.StreamWriter($this.CV_Stream, $this.CV_EncodingT)
 
 	}
 
@@ -1319,9 +1332,6 @@ class TelnetClient {
 
 		# テキスト メッセージ
 		[string]$TextMeaage = ""
-
-		# エンコード
-		$Encoding = New-Object System.Text.AsciiEncoding
 
 		# 初期タイムアウト設定
 		$Now = Get-Date
@@ -1354,7 +1364,7 @@ class TelnetClient {
 						for( $i = 0; $this.CV_ReceiveBufferIndex -lt $Read; $i++ ){
 							$TextBuffer[$i] = $this.CV_ReceiveBuffer[$this.CV_ReceiveBufferIndex++]
 						}
-						$RaceveTempText = ($Encoding.GetString( $TextBuffer, 0, $i ))
+						$RaceveTempText = ($this.CV_EncodingR.GetString( $TextBuffer, 0, $i ))
 						$TextMeaage += $RaceveTempText
 					}
 				}
