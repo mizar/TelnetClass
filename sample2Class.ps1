@@ -371,7 +371,7 @@ class TelnetClient {
 				# オプション
 				$binOption = $NotSetKey
 				$strOption =  $this.CC_TelnetControlDecode[$binOption]
-				$hexOption = $this.Byte2Hex($binOption)
+				# $hexOption = $this.Byte2Hex($binOption)
 
 				# 未設定オプションを使用するか否かの確認
 				$IsUseOption = $this.CCONF_TelnetClientConfig[$NotSetKey]
@@ -423,7 +423,7 @@ class TelnetClient {
 				# 送信バッファセット
 				$binSendOrder = $NotSetOptionAnalysis.SendOrder
 				$strSendOrder = $this.CC_TelnetControlDecode[$binSendOrder]
-				$hexSendOrder = $this.Byte2Hex($binSendOrder)
+				# $hexSendOrder = $this.Byte2Hex($binSendOrder)
 
 				if( $this.CCONF_Debug ){
 					$HandShakeMessage ="[Send/Client] IAC "
@@ -510,7 +510,7 @@ class TelnetClient {
 				# オプション
 				$binOption = $NotSetKey
 				$strOption =  $this.CC_TelnetControlDecode[$binOption]
-				$hexOption = $this.Byte2Hex($binOption)
+				# $hexOption = $this.Byte2Hex($binOption)
 
 				# 未設定オプションを使用するか否かの確認
 				$IsUseOption = $this.CCONF_TelnetServerConfig[$NotSetKey]
@@ -561,7 +561,7 @@ class TelnetClient {
 				# 送信バッファセット
 				$binSendOrder = $NotSetOptionAnalysis.SendOrder
 				$strSendOrder = $this.CC_TelnetControlDecode[$binSendOrder]
-				$hexSendOrder = $this.Byte2Hex($binSendOrder)
+				# $hexSendOrder = $this.Byte2Hex($binSendOrder)
 
 				if( $this.CCONF_Debug ){
 					$HandShakeMessage ="[Send/Server] IAC "
@@ -616,11 +616,11 @@ class TelnetClient {
 
 		# 命令
 		$strOrder = $this.CC_TelnetControlDecode[$binOrder]
-		$hexOrder = $this.Byte2Hex($binOrder)
+		# $hexOrder = $this.Byte2Hex($binOrder)
 
 		# オプション
 		$strOption =  $this.CC_TelnetControlDecode[$binOption]
-		$hexOption = $this.Byte2Hex($binOption)
+		# $hexOption = $this.Byte2Hex($binOption)
 
 		if( $this.CCONF_DevDebug ){
 			$HandShakeMessage = "[DEBUG] デシジョンテーブル抽出条件 / IAC : 命令 $strOrder : オプション $strOption"
@@ -862,11 +862,11 @@ class TelnetClient {
 		## 受信バッファ解析 & ハンドシェーク リプライ作成
 		# 命令
 		$strOrder = $this.CC_TelnetControlDecode[$binOrder]
-		$hexOrder = $this.Byte2Hex($binOrder)
+		# $hexOrder = $this.Byte2Hex($binOrder)
 
 		# オプション
 		$strOption =  $this.CC_TelnetControlDecode[$binOption]
-		$hexOption = $this.Byte2Hex($binOption)
+		# $hexOption = $this.Byte2Hex($binOption)
 
 		if( $this.CCONF_Debug ){
 			# 命令受信を Log に出力
@@ -938,11 +938,11 @@ class TelnetClient {
 	[void] SetSendBuffer( $binSendOrder, $binOption ){
 		# 送信バッファセット
 		$strSendOrder = $this.CC_TelnetControlDecode[$binSendOrder]
-		$hexSendOrder = $this.Byte2Hex($binSendOrder)
+		# $hexSendOrder = $this.Byte2Hex($binSendOrder)
 
 		# オプション
 		$strOption =  $this.CC_TelnetControlDecode[$binOption]
-		$hexOption = $this.Byte2Hex($binOption)
+		# $hexOption = $this.Byte2Hex($binOption)
 
 		# NOP 以外は送信バッファセットする(NOP は処理スキップ)
 		if( $binSendOrder -ne $this.CC_Nop ){
@@ -971,11 +971,11 @@ class TelnetClient {
 	[PSCustomObject]SelectDecisionTable4NotSB($binOrder, $binOption){
 		# 命令
 		$strOrder = $this.CC_TelnetControlDecode[$binOrder]
-		$hexOrder = $this.Byte2Hex($binOrder)
+		# $hexOrder = $this.Byte2Hex($binOrder)
 
 		# オプション
 		$strOption =  $this.CC_TelnetControlDecode[$binOption]
-		$hexOption = $this.Byte2Hex($binOption)
+		# $hexOption = $this.Byte2Hex($binOption)
 
 		if( $this.CCONF_DevDebug ){
 			$HandShakeMessage = "[DEBUG] デシジョンテーブル抽出条件 / IAC : 命令 $strOrder : オプション $strOption"
@@ -1192,11 +1192,11 @@ class TelnetClient {
 		## 受信バッファ解析 & ハンドシェーク リプライ作成
 		# 命令
 		$strOrder = $this.CC_TelnetControlDecode[$binOrder]
-		$hexOrder = $this.Byte2Hex($binOrder)
+		# $hexOrder = $this.Byte2Hex($binOrder)
 
 		# オプション
 		$strOption =  $this.CC_TelnetControlDecode[$binOption]
-		$hexOption = $this.Byte2Hex($binOption)
+		# $hexOption = $this.Byte2Hex($binOption)
 
 		if( $this.CCONF_Debug ){
 			# 命令受信を Log に出力
