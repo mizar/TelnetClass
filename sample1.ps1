@@ -1,7 +1,7 @@
 ﻿# Class Include
 $IncludeFile = Join-Path $PSScriptRoot "TelnetClient.ps1"
 if( -not (Test-Path $IncludeFile) ){
-	echo "[FAIL] $IncludeFile not found !"
+	Write-Output "[FAIL] $IncludeFile not found !"
 	exit
 }
 . $IncludeFile
@@ -50,7 +50,7 @@ $ReceiveStrings = $Telnet.Receive( "#" )
 
 # 受信した内容をテスト表示
 foreach( $ReceiveString in $ReceiveStrings ){
-	echo "[TEST] $ReceiveString"
+	Write-Output "[TEST] $ReceiveString"
 }
 
 # コマンド送信
