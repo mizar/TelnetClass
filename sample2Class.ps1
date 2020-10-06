@@ -1337,7 +1337,7 @@ class TelnetClient {
 		$Now = Get-Date
 		$TimeOver = $Now.AddSeconds($this.CCONF_TimeOut)
 
-		sleep 1
+		Start-Sleep 1
 
 		while( (Get-Date) -le $TimeOver ){
 
@@ -1400,7 +1400,7 @@ class TelnetClient {
 			}
 
 			# 送信後少し待つ
-			sleep 1
+			Start-Sleep 1
 		}
 
 		# テキスト受信していたらログに書く
