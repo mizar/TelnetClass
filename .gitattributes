@@ -1,0 +1,4 @@
+[attr]u8crlf encoding=utf-8-with-signature-dos
+*.txt u8crlf
+*.csv u8crlf
+*.ps1 u8crlf
